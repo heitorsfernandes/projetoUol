@@ -21,4 +21,15 @@ const newClient = async (clientInfo) => {
   };
 };
 
-module.exports = { getClients, newClient };
+const updateClient = async (clientInfo) => {
+  const {
+    id, name, email, cpf, phone, status,
+  } = clientInfo;
+  await connection.execute(
+    'UPDATE Store.clients SET name = ?, email = ?, cpf = ?, phone = ?, status = ? WHERE id = ?',
+    [name, email, cpf, phone, status, id],
+  );
+  return clientInfo;
+};
+
+module.exports = { getClients, newClient, updateClient };

@@ -16,4 +16,10 @@ const newClient = async (clientInfo) => {
   return { type: null, message: newClientInfo };
 };
 
-module.exports = { getClients, newClient };
+const updateClient = async (clientInfo) => {
+  const updatedClientInfo = await clientModel.updateClient(clientInfo);
+
+  return { type: null, message: updatedClientInfo };
+};
+
+module.exports = { getClients, newClient, updateClient };

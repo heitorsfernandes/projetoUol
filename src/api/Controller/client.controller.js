@@ -12,7 +12,15 @@ const newClient = async (req, res) => {
   return res.status(201).json(message);
 };
 
+const updateClient = async (req, res) => {
+  const newClientInfo = req.body;
+  const { message } = await clientService.updateClient(newClientInfo);
+
+  return res.status(200).json(message);
+};
+
 module.exports = {
   getClients,
   newClient,
+  updateClient,
 };
