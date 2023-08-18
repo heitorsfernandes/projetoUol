@@ -8,4 +8,12 @@ const getClients = async () => {
   return { type: null, message: clientList };
 };
 
-module.exports = { getClients };
+const newClient = async (clientInfo) => {
+  // const { name, email, cpf, telefone, status } = clientInfo;
+  // if (!name) throw new Error('Invalid entries. Try again.');
+
+  const newClientInfo = await clientModel.newClient(clientInfo);
+  return { type: null, message: newClientInfo };
+};
+
+module.exports = { getClients, newClient };

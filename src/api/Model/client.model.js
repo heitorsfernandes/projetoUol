@@ -8,4 +8,17 @@ const getClients = async () => {
   return products;
 };
 
-module.exports = { getClients };
+const newClient = async (clientInfo) => {
+  const {
+    name, email, cpf, phone, status,
+  } = clientInfo;
+  const [{ insertId }] = await connection.execute(
+    'INSERT INTO Store.clients (name, email, cpf, phone, status) VALUES (?, ?, ?, ?, ?)',
+    [name, email, cpf, phone, status],
+  );
+  return {
+    id: insertId, name, email, cpf, phone, status,
+  };
+};
+
+module.exports = { getClients, newClient };
