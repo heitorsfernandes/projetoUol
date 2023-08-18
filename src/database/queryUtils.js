@@ -1,16 +1,15 @@
 const fs = require('fs');
 const path = require('path');
-// const { Pool } = require('mysql2/promise');
 const connection = require('./Connection');
 
-export function readQueries(filePath = 'createDatabase.sql') {
+function readQueries(filePath = 'createDatabase.sql') {
   const importPath = path.resolve(__dirname, filePath);
   const seedDBContent = fs.readFileSync(importPath).toString();
   const queries = seedDBContent.split(';').filter((p) => p.trim());
   return queries;
 }
 
-export async function executeQueries(
+async function executeQueries(
   conn,
   queries = readQueries(),
 ) {
@@ -33,3 +32,8 @@ if (require.main === module) {
       process.exit(0);
     });
 }
+
+module.exports = {
+  readQueries,
+  executeQueries,
+};
