@@ -6,6 +6,7 @@ function ClientCard({ name, email, cpf, phone, status }) {
     return ( 
       <div className="client-info">
         <div>
+          <button disabled={true} className="edit-button">Nome</button>
           <p className="client-name">{name}</p>
           <p className="client-email">{email}</p>
         </div>
@@ -22,3 +23,11 @@ function ClientCard({ name, email, cpf, phone, status }) {
 }
         
 export default ClientCard;
+
+ClientCard.propTypes = {
+    name: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+    cpf: PropTypes.string.isRequired,
+    phone: PropTypes.string.isRequired,
+    status: PropTypes.string.isRequired,
+};
