@@ -15,4 +15,6 @@ function Provider({ children }) {
             { children }
         </AppContext.Provider>
     );
-}
+} 
+
+export default Provider;
