@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
 import { createClient } from '../services/requests';
 import { useNavigate } from 'react-router-dom';
+import { cpf } from 'cpf-cnpj-validator';
+import * as EmailValidator from 'email-validator';
+
 
 const statuses = ['Ativo', 'Inativo', 'Aguardando ativação', 'Desativado'];
 
 function Formulario() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [cpf, setCpf] = useState('');
+  const [cpfInput, setCpf] = useState('');
   const [phone, setPhone] = useState('');
   const [status, setStatus] = useState('');
   const navigate = useNavigate();
@@ -18,7 +21,17 @@ function Formulario() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    await createClient({ name, email, cpf, phone, status })
+    const isValidCPF = cpf.isValid(cpfInput);
+    const isValidEmail = EmailValidator.validate(email);
+    if (!isValidCPF) {
+      return alert('CPF inválido');
+    }
+
+    if (!isValidEmail) {
+      return alert('Email inválido');
+    }
+
+    await createClient({ name, email, cpf: cpfInput, phone, status })
     navigate('/clients');
   };
 
@@ -44,17 +57,17 @@ function Formulario() {
           value={email}
           onChange={(e) => handleInputChange(e, setEmail)}
           placeholder="Email"
-          pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
           required
         />
       </div>
       <div>
         <input
           type="text"
-          value={cpf}
+          value={cpfInput}
           onChange={(e) => handleInputChange(e, setCpf)}
           placeholder="CPF"
-          pattern="\d{3}\.\d{3}\.\d{3}-\d{2}"
+          title="Digite apenas os números do CPF (11 dígitos)"
+          pattern="\d{11}"
           required
         />
       </div>

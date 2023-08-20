@@ -6,14 +6,13 @@ function ClientCard({ name, email, cpf, phone, status }) {
     return ( 
       <div className="client-info">
         <div>
-          <button disabled={true} className="edit-button">Nome</button>
           <p className="client-name">{name}</p>
           <p className="client-email">{email}</p>
         </div>
-        <di>
+        <div>
           <p className="client-cpf">{cpf}</p>
           <p className="client-phone">{phone}</p>
-        </di>
+        </div>
         <p className={`client-status ${status}`}>
           {status}
         </p>
