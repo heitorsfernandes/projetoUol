@@ -4,9 +4,10 @@ import AppContext from '../context/AppContext';
 import { getClients } from '../services/requests';
 import ClientCard from '../components/ClientCard';
 import Navbar from '../components/Navbar';
-import { MainStyle } from '../styles/MainStyle';
+import { MainStyle, UserIcon } from '../styles/MainStyle';
 import { InfoBoardStyle, TextWrapper, ButtonStyle } from '../styles/InfoBoardStyle';
-import { Typography } from '@mui/material';
+import { Typography, Box } from '@mui/material';
+import userIcon from '../images/userIcon.png'
 
 function ClientsBoard() {
     const { clients, setClients } = useContext(AppContext);
@@ -40,14 +41,19 @@ function ClientsBoard() {
             </nav>
             <main>
                 <MainStyle>
-                    <Typography 
-                        variant="h6" 
-                        fontFamily="UOLTextBold"
-                        fontWeight={500} 
-                    > 
-                        Painel de clientes 
-                    </Typography>
-                    <InfoBoardStyle>
+                    <Box display='flex' flexDirection='row' alignItems='start'>
+                        <UserIcon src={userIcon} alt="Logo" />
+                        <Typography 
+                            variant="h5" 
+                            fontFamily="UOLTextBold"
+                            fontWeight={500}
+                            style={{ marginLeft: '10px' }} 
+                        > 
+                            Painel de clientes 
+                        </Typography>
+                    </Box >
+                    <div style={{ borderTop: '1px solid #E0E0E0', width: '80%', marginTop: '10px' }}></div>
+                    <InfoBoardStyle >
                         <TextWrapper>
                         <Typography variant="body1">Listadem de usuários </Typography>
                         <Typography variant="body2" color="textSecondary">

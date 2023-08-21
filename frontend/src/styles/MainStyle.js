@@ -6,3 +6,7 @@ export const MainStyle = styled('div')({
   paddingLeft: '100px',
   marginTop: '30px',
 });
+
+export const UserIcon = styled('img')({
+  maxWidth: '3%',
+})

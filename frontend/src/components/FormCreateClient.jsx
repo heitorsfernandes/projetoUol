@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { cpf as cpfValidator } from 'cpf-cnpj-validator';
 import * as EmailValidator from 'email-validator';
 import AppContext from '../context/AppContext';
-import { Button, Typography, Box, Grid, TextField, MenuItem } from "@mui/material";
+import { TextField, MenuItem } from "@mui/material";
 import { StyledForm, StyledButtonCriar, StyledButtonVoltar } from '../styles/FormStyle';
 
 const statuses = ['Ativo', 'Inativo', 'Aguardando ativação', 'Desativado'];
