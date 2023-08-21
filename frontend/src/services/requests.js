@@ -30,6 +30,7 @@ const createClient = async ({ name, email, cpf, phone, status}) => {
 const updateClient = async ({ id, name, email, cpf, phone, status}) => {
     try {
         const result = await api.put('/clients/', { id, name, email, cpf, phone, status});
+        console.log(result.data);
         return result.data;
     } catch (error) {
         return error.toJSON();

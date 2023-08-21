@@ -4,10 +4,13 @@ import AppContext from './AppContext';
 
 function Provider({ children }) { 
     const [clients, setClients] = React.useState([]);
+    const [editClient, setEditClient] = React.useState(null);
     
     const context = {
         clients,
         setClients,
+        editClient,
+        setEditClient,
     };
 
     return (

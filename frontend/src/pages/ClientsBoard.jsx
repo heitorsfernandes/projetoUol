@@ -20,6 +20,7 @@ function ClientsBoard() {
     const clientListHtml = clients.map((client) => (
         <ClientCard 
             key={client.id}
+            id={client.id}
             name={client.name}
             email={client.email}
             cpf={client.cpf}

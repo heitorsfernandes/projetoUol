@@ -1,8 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
 import FormCreateClient from '../components/FormCreateClient';
+import AppContext from '../context/AppContext';
 
 function ClientEdit() {
+    const { editClient } = useContext(AppContext);
+    
     return (
         <>
             <nav>

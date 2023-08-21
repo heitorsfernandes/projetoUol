@@ -1,28 +1,45 @@
-import React, { useState } from 'react';
-import { createClient } from '../services/requests';
+import React, { useState, useEffect, useContext } from 'react';
+import { createClient, updateClient } from '../services/requests';
 import { useNavigate } from 'react-router-dom';
-import { cpf } from 'cpf-cnpj-validator';
+import { cpf as cpfValidator } from 'cpf-cnpj-validator';
 import * as EmailValidator from 'email-validator';
-
+import AppContext from '../context/AppContext';
 
 const statuses = ['Ativo', 'Inativo', 'Aguardando ativação', 'Desativado'];
 
 function Formulario() {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [cpfInput, setCpf] = useState('');
-  const [phone, setPhone] = useState('');
-  const [status, setStatus] = useState('');
+  const { editClient, setEditClient } = useContext(AppContext);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    cpf: '',
+    phone: '',
+    status: '',
+  });
   const navigate = useNavigate();
 
-  const handleInputChange = (event, setter) => {
-    setter(event.target.value);
-  };
+  useEffect(() => {
+    if (editClient) {
+      setFormData(editClient);
+    } else {
+      setFormData({
+        name: '',
+        email: '',
+        cpf: '',
+        phone: '',
+        status: '',
+      });
+    }
+  }, [editClient]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const isValidCPF = cpf.isValid(cpfInput);
+
+    const { id, name, email, cpf, phone, status } = editClient || formData; // Use formData if editClient is null
+
+    const isValidCPF = cpfValidator.isValid(cpf);
     const isValidEmail = EmailValidator.validate(email);
+
     if (!isValidCPF) {
       return alert('CPF inválido');
     }
@@ -31,11 +48,18 @@ function Formulario() {
       return alert('Email inválido');
     }
 
-    await createClient({ name, email, cpf: cpfInput, phone, status })
+    if (editClient) {
+      await updateClient({ id, name, email, cpf, phone, status }); // Call update function instead of create
+      setEditClient(null); // Clear editClient after updating
+    } else {
+      await createClient({ name, email, cpf, phone, status });
+    }
+
     navigate('/clients');
   };
 
   const handleGoBack = () => {
+    setEditClient(null); // Clear editClient when going back
     navigate('/clients');
   };
 
@@ -44,8 +68,9 @@ function Formulario() {
       <div>
         <input
           type="text"
-          value={name}
-          onChange={(e) => handleInputChange(e, setName)}
+          name="name"
+          value={formData.name}
+          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
           placeholder="Nome"
           minLength={3}
           required
@@ -54,8 +79,9 @@ function Formulario() {
       <div>
         <input
           type="email"
-          value={email}
-          onChange={(e) => handleInputChange(e, setEmail)}
+          name="email"
+          value={formData.email}
+          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
           placeholder="Email"
           required
         />
@@ -63,8 +89,9 @@ function Formulario() {
       <div>
         <input
           type="text"
-          value={cpfInput}
-          onChange={(e) => handleInputChange(e, setCpf)}
+          name="cpf"
+          value={formData.cpf}
+          onChange={(e) => setFormData({ ...formData, cpf: e.target.value })}
           placeholder="CPF"
           title="Digite apenas os números do CPF (11 dígitos)"
           pattern="\d{11}"
@@ -74,15 +101,21 @@ function Formulario() {
       <div>
         <input
           type="tel"
-          value={phone}
-          onChange={(e) => handleInputChange(e, setPhone)}
+          name="phone"
+          value={formData.phone}
+          onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
           placeholder="Telefone"
           pattern="\d{10,11}"
           required
         />
       </div>
       <div>
-      <select value={status} onChange={(e) => handleInputChange(e, setStatus)} required>
+        <select
+          name="status"
+          value={formData.status}
+          onChange={(e) => setFormData({ ...formData, status: e.target.value })}
+          required
+        >
           <option value="" disabled>
             Status
           </option>
@@ -94,11 +127,8 @@ function Formulario() {
         </select>
       </div>
       <div>
-        <button type="submit">Criar</button>
-        <button 
-          type="button"
-          onClick={ handleGoBack }
-        >
+        <button type="submit">{editClient ? 'Editar' : 'Criar'}</button>
+        <button type="button" onClick={handleGoBack}>
           Voltar
         </button>
       </div>

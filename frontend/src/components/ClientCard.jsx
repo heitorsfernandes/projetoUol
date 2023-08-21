@@ -1,8 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import AppContext from '../context/AppContext';
+import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-function ClientCard({ name, email, cpf, phone, status }) { 
+function ClientCard({ id,name, email, cpf, phone, status }) { 
+  const { setEditClient } = useContext(AppContext);
+  const navigate = useNavigate();
+
+  const handleChange = () => {
+    console.log(id, name)
+    setEditClient({ id, name, email, cpf, phone, status });
+    navigate('/client/edit');
+  }
+
     return ( 
       <div className="client-info">
         <div>
@@ -16,7 +27,12 @@ function ClientCard({ name, email, cpf, phone, status }) {
         <p className={`client-status ${status}`}>
           {status}
         </p>
-        <button className="edit-button">Editar</button>
+        <button 
+          className="edit-button"
+          onClick={ () => handleChange()}
+        >
+            Editar
+        </button>
       </div>
     ) 
 }
