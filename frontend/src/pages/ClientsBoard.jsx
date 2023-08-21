@@ -32,8 +32,7 @@ function ClientsBoard() {
             status={client.status}
         />
     ));
-            
-    
+
     return (
         <>
             <nav>

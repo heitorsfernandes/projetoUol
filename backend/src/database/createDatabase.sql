@@ -15,4 +15,7 @@ CREATE TABLE `clients` (
 INSERT INTO
     `clients`
 VALUES
-    (1, 'Margot Robbie', 'margotrobbie@hotmail.com', '60146325060', '31988887777', 'Desativado');
+    (1, 'Margot Robbie', 'margotrobbie@hotmail.com', '60146325060', '31988887777', 'Ativo'),
+    (2, 'Ryan Gosling', 'ryangosling@hotmail.com', '60146325060', '31988887777', 'Inativo'),
+    (3, 'Will Ferrel', 'willferrel@hotmail.com', '60146325060', '31988887777', 'Aguardando ativação'),
+    (4, 'Kate McKinnon', 'katemckinnon@hotmail.com', '60146325060', '31988887777', 'Desativado')
