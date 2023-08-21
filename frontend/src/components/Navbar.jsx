@@ -1,11 +1,13 @@
 import React from 'react';
-import logo from '../images/uol-logo-1-1.png'; 
+import logo from '../images/uol-logo-1-1.png';
+import { StyledNavbar, StyledLogo } from '../styles/NavbarStyles';
 
 function Navbar() {
+
     return(
-        <div>
-            <img src={logo} alt="Logo" style={{ maxWidth: '5%', maxHeight: '5%' }} />
-        </div>
+      <StyledNavbar>
+        <StyledLogo src={logo} alt="Logo" />
+      </StyledNavbar>
     )
 }
 
