@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from '../images/uol-logo-1-1.png';
+import logo from '../images/logo-uol-edtech-branco.svg';
 import { StyledNavbar, StyledLogo } from '../styles/NavbarStyles';
 
 function Navbar() {
