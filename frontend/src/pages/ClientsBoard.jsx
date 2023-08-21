@@ -6,6 +6,7 @@ import ClientCard from '../components/ClientCard';
 import Navbar from '../components/Navbar';
 import { MainStyle } from '../styles/MainStyle';
 import { InfoBoardStyle, TextWrapper, ButtonStyle } from '../styles/InfoBoardStyle';
+import { Typography } from '@mui/material';
 
 function ClientsBoard() {
     const { clients, setClients } = useContext(AppContext);
@@ -53,11 +54,13 @@ function ClientsBoard() {
                         </ButtonStyle>
                     </InfoBoardStyle>
                     { clientListHtml }
-                    {clients.length === 1 ? (
-                        <span>Exibindo 1 cliente</span>
-                        ) : (
-                        <span>Exibindo {clients.length} clientes</span>
-                    )}
+                    <Typography variant="body2" color="text.secondary" >
+                        {clients.length === 1 ? (
+                            <span>Exibindo 1 cliente</span>
+                            ) : (
+                            <span>Exibindo {clients.length} clientes</span>
+                        )}
+                    </Typography>
                 </MainStyle>
             </main>
         </>
