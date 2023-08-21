@@ -8,6 +8,6 @@ export const StyledNavbar = styled('div')({
 });
 
 export const StyledLogo = styled('img')({
-  maxWidth: '10%', // Aumente o tamanho da logo para 10%
-  maxHeight: '10%', // Aumente o tamanho da logo para 10%
+  maxWidth: '10%',
+  maxHeight: '10%', 
 });

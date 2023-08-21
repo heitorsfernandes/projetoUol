@@ -1,0 +1,8 @@
+import { styled } from '@mui/material/styles';
+
+export const MainStyle = styled('div')({
+  display: 'flex',
+  flexDirection: 'column',
+  paddingLeft: '100px',
+  marginTop: '50px',
+});
