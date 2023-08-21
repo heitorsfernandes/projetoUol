@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { cpf as cpfValidator } from 'cpf-cnpj-validator';
 import * as EmailValidator from 'email-validator';
 import AppContext from '../context/AppContext';
+import { Button, Typography, Box, Grid, TextField, MenuItem } from "@mui/material";
+import { StyledForm, StyledButtonCriar, StyledButtonVoltar } from '../styles/FormStyle';
 
 const statuses = ['Ativo', 'Inativo', 'Aguardando ativação', 'Desativado'];
 
@@ -82,75 +84,81 @@ function Formulario() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <StyledForm onSubmit={handleSubmit}>
       <div>
-        <input
+        <TextField
           type="text"
           name="name"
           value={formData.name}
           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-          placeholder="Nome"
+          label="Nome"
           minLength={3}
           required
         />
       </div>
       <div>
-        <input
+        <TextField
           type="email"
           name="email"
           value={formData.email}
           onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-          placeholder="Email"
+          label="Email"
           required
         />
       </div>
       <div>
-        <input
+        <TextField
           type="text"
           name="cpf"
           value={formData.cpf}
           onChange={(e) => setFormData({ ...formData, cpf: e.target.value })}
-          placeholder="CPF"
+          label="CPF"
           title="Digite apenas os números do CPF (11 dígitos)"
           pattern="\d{11}"
           required
         />
       </div>
       <div>
-        <input
+        <TextField
           type="tel"
           name="phone"
           value={formData.phone}
           onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-          placeholder="Telefone"
+          label="Telefone"
           pattern="\d{10,11}"
           required
         />
       </div>
       <div>
-        <select
-          name="status"
-          value={formData.status}
-          onChange={(e) => setFormData({ ...formData, status: e.target.value })}
-          required
-        >
-          <option value="" disabled>
-            Status
-          </option>
-          {statuses.map((status) => (
-            <option key={status} value={status}>
-              {status}
-            </option>
-          ))}
-        </select>
+      <TextField
+        select
+        name="status"
+        value={formData.status}
+        onChange={(e) => setFormData({ ...formData, status: e.target.value })}
+        label="Status"
+        required
+        style={{ width: '80%' }}
+      >
+        {statuses.map((status) => (
+          <MenuItem key={status} value={status}>
+            {status}
+          </MenuItem>
+        ))}
+      </TextField>
       </div>
-      <div>
-        <button type="submit">{editClient ? 'Editar' : 'Criar'}</button>
-        <button type="button" onClick={handleGoBack}>
+      <div style={{ display: 'flex', flexDirection: 'row', gap: '10px', justifyContent: 'left' }}>
+        <StyledButtonCriar
+          type="submit"
+        > {editClient ? 'Editar' : 'Criar'}
+        </StyledButtonCriar>
+        <StyledButtonVoltar 
+          type="button" 
+          onClick={handleGoBack}
+        > 
           Voltar
-        </button>
+        </StyledButtonVoltar>
       </div>
-    </form>
+    </StyledForm>
   );
 }
 

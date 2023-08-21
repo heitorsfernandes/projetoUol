@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AppContext from '../context/AppContext';
 import { getClients } from '../services/requests';
@@ -40,11 +40,19 @@ function ClientsBoard() {
             </nav>
             <main>
                 <MainStyle>
-                    <h3> Painel de clientes </h3>
+                    <Typography 
+                        variant="h6" 
+                        fontFamily="UOLTextBold"
+                        fontWeight={500} 
+                    > 
+                        Painel de clientes 
+                    </Typography>
                     <InfoBoardStyle>
                         <TextWrapper>
-                            <span> Listagem de usuários </span>
-                            <p> Escolha um cliente para visualizar os detalhes </p>
+                        <Typography variant="body1">Listadem de usuários </Typography>
+                        <Typography variant="body2" color="textSecondary">
+                            Escolha um cliente para visualizar os detalhes
+                        </Typography>
                         </TextWrapper>
                         <ButtonStyle
                             className="button-create-client"

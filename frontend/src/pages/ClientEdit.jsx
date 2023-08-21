@@ -1,23 +1,33 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React from 'react';
 import Navbar from '../components/Navbar';
 import FormCreateClient from '../components/FormCreateClient';
-import AppContext from '../context/AppContext';
+import { MainStyle } from '../styles/MainStyle';
+import { Typography } from "@mui/material";
+
 
 function ClientEdit() {
-    const { editClient } = useContext(AppContext);
-    
     return (
         <>
             <nav>
                 <Navbar />
             </nav>
             <main>
-                <h3> Painel de clientes </h3>
-                <div className="client-form">
-                    <span> Listagem de usuários </span>
-                    <p> Escolha um cliente para visualizar os detalhes </p>
-                </div>
+                <MainStyle>
+                    <Typography 
+                        variant="h6" 
+                        fontFamily="UOLTextBold"
+                        fontWeight={500} 
+                    > 
+                        Painel de clientes 
+                    </Typography>
+                    <div className="client-form">
+                        <Typography variant="body1">Novo usuário</Typography>
+                        <Typography variant="body2" color="textSecondary">
+                            Informe os campos a seguir para criar novo usuário
+                        </Typography>
+                    </div>
                 <FormCreateClient />
+                </MainStyle>
             </main>
         </>
     );

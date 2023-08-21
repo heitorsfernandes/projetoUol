@@ -3,15 +3,19 @@ import React from 'react';
 import Provider from './context/Provider';
 import ClientsBoard from './pages/ClientsBoard';
 import ClientEdit from './pages/ClientEdit';
+import { ThemeProvider } from '@mui/material/styles';
+import Theme from './styles/Theme';
 
 function App() {
   return (
   <Provider>
-    <Routes>
-      <Route path="/" element={<Navigate to="/clients" replace />} />
-      <Route path="/clients" element={ <ClientsBoard /> } />
-      <Route path="/client/edit" element={ <ClientEdit /> } />
-    </Routes>
+    <ThemeProvider theme={Theme}>
+      <Routes>
+        <Route path="/" element={<Navigate to="/clients" replace />} />
+        <Route path="/clients" element={ <ClientsBoard /> } />
+        <Route path="/client/edit" element={ <ClientEdit /> } />
+      </Routes>
+    </ThemeProvider>
   </Provider>
   );
 }
