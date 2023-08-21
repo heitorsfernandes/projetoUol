@@ -20,7 +20,13 @@ function Formulario() {
 
   useEffect(() => {
     if (editClient) {
-      setFormData(editClient);
+      setFormData({
+        name: editClient.name,
+        email: editClient.email,
+        cpf: editClient.cpf,
+        phone: editClient.phone,
+        status: editClient.status,
+      });
     } else {
       setFormData({
         name: '',
@@ -35,10 +41,8 @@ function Formulario() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const { id, name, email, cpf, phone, status } = editClient || formData; // Use formData if editClient is null
-
-    const isValidCPF = cpfValidator.isValid(cpf);
-    const isValidEmail = EmailValidator.validate(email);
+    const isValidCPF = cpfValidator.isValid(formData.cpf);
+    const isValidEmail = EmailValidator.validate(formData.email);
 
     if (!isValidCPF) {
       return alert('CPF inválido');
@@ -49,17 +53,31 @@ function Formulario() {
     }
 
     if (editClient) {
-      await updateClient({ id, name, email, cpf, phone, status }); // Call update function instead of create
-      setEditClient(null); // Clear editClient after updating
+      const { id } = editClient;
+      await updateClient({
+        id,
+        name: formData.name,
+        email: formData.email,
+        cpf: formData.cpf,
+        phone: formData.phone,
+        status: formData.status,
+      });
+      setEditClient(null);
     } else {
-      await createClient({ name, email, cpf, phone, status });
+      await createClient({
+        name: formData.name,
+        email: formData.email,
+        cpf: formData.cpf,
+        phone: formData.phone,
+        status: formData.status,
+      });
     }
 
     navigate('/clients');
   };
 
   const handleGoBack = () => {
-    setEditClient(null); // Clear editClient when going back
+    setEditClient(null);
     navigate('/clients');
   };
 
